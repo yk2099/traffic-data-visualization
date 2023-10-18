@@ -1,16 +1,21 @@
 "use client"
-import { ChakraProvider } from '@chakra-ui/react'
+import { Box, ChakraProvider } from '@chakra-ui/react'
 import { Navbar } from '@/components/Navbar';
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
       <body>
-        <ChakraProvider><Navbar />{children}</ChakraProvider>
+        <ChakraProvider>
+          <Navbar />
+          <Box>
+            {children}
+          </Box>
+        </ChakraProvider>
       </body>
     </html>
   );
