@@ -1,6 +1,5 @@
 "use client"
 import { Box, ChakraProvider } from '@chakra-ui/react'
-import { Navbar } from '@/components/Navbar';
 
 export default function RootLayout({
   children,
@@ -11,8 +10,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ChakraProvider>
-          <Navbar />
-          <Box>
+          <Box h={'100vh'} w={'100vw'}>
             {children}
           </Box>
         </ChakraProvider>

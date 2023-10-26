@@ -5,6 +5,7 @@ import { Map } from 'react-map-gl';
 import DeckGL from '@deck.gl/react/typed';
 import {LineLayer} from '@deck.gl/layers/typed';
 import { Box } from '@chakra-ui/react';
+import { Navbar } from '@/components/Navbar';
 
 const INITIAL_VIEW_STATE = {
   longitude: -122.41669,
@@ -24,7 +25,8 @@ export default function Home() {
   ];
 
   return (
-    <Box h={'80vh'} position={'relative'} justifySelf={'center'}>
+    <Box>
+      <Navbar />
       <DeckGL 
         initialViewState={INITIAL_VIEW_STATE}
         controller={true}
