@@ -13,60 +13,15 @@ const data = [
 ];
 
 export default function Home() {
-  const [city, setCity] = useState('City');
-  const [data, setData] = useState('Data');
-  const [layer, setLayer] = useState('Layer');
+  const [city, setCity] = useState('LA');
+  const [data, setData] = useState('Businesses');
+  const [layer, setLayer] = useState('Scatter Plot');
 
-  function getHexagonNYC() {
-    return new HexagonLayer({
-      id: 'hexagon-layer',
-      data: 'https://data.cityofnewyork.us/resource/uvpi-gqnh.json',
-      pickable: true,
-      extruded: true,
-      radius: 200,
-      elevationScale: 4,
-      getPosition: d => [ parseFloat(d.longitude),parseFloat(d.latitude)],
-    });
-  }
-
-  /* LA Trees */
-  function getHexagonLA() {
-    return new HexagonLayer({
-      id: 'hexagon-layer',
-      data: 'https://data.lacity.org/resource/vt5t-mscf.json',
-      pickable: true,
-      extruded: true,
-      radius: 200,
-      elevationScale: 4,
-      getPosition: d => [ parseFloat(d.location_1.latitude),parseFloat(d.location_1.longitude)],
-    });
-  }
-
-  /* LA Trees */
-  /* function getScatterPlotLA() {
+  /* NY */
+  function getScatterPlotNYC( link: string ) {
     return new ScatterplotLayer({
       id: 'scatterplot-layer',
-      data: 'https://data.lacity.org/resource/vt5t-mscf.json',
-      getPosition: d => [ parseFloat(d.location_1.latitude),parseFloat(d.location_1.longitude)],
-      getRadius: d => Math.sqrt(d.exits),
-      pickable: true,
-      opacity: 1,
-      stroked: true,
-      filled: true,
-      radiusScale: 15,
-      radiusMinPixels: 1,
-      radiusMaxPixels: 100,
-      lineWidthMinPixels: 1,
-      getFillColor: d => [255, 140, 255],
-      getLineColor: d => [124,252,0]
-    })
-  }; */
-
-  /* NY Trees */
-  function getScatterPlotNYC() {
-    return new ScatterplotLayer({
-      id: 'scatterplot-layer',
-      data: 'https://data.cityofnewyork.us/resource/uvpi-gqnh.json',
+      data: link,
       getPosition: d => [ parseFloat(d.longitude),parseFloat(d.latitude)],
       getRadius: d => Math.sqrt(d.exits),
       pickable: true,
@@ -81,6 +36,52 @@ export default function Home() {
       getLineColor: d => [124,252,0]
     })
   };
+
+  function getHexagonNYC( link: string ) {
+    return new HexagonLayer({
+      id: 'hexagon-layer',
+      data: link,
+      pickable: true,
+      extruded: true,
+      radius: 200,
+      elevationScale: 4,
+      getPosition: d => [ parseFloat(d.longitude),parseFloat(d.latitude)],
+    });
+  }
+  /* */
+
+  /* LA */
+  function getScatterPlotLA( link: string ) {
+    return new ScatterplotLayer({
+      id: 'scatterplot-layer',
+      data: link,
+      getPosition: d => [ parseFloat(d.location_1.longitude),parseFloat(d.location_1.latitude)],
+      getRadius: d => Math.sqrt(d.exits),
+      pickable: true,
+      opacity: 1,
+      stroked: true,
+      filled: true,
+      radiusScale: 15,
+      radiusMinPixels: 1,
+      radiusMaxPixels: 100,
+      lineWidthMinPixels: 1,
+      getFillColor: d => [255, 140, 255],
+      getLineColor: d => [124,252,0]
+    })
+  };
+
+  function getHexagonLA( link: string ) {
+    return new HexagonLayer({
+      id: 'hexagon-layer',
+      data: link,
+      pickable: true,
+      extruded: true,
+      radius: 200,
+      elevationScale: 4,
+      getPosition: d => [ parseFloat(d.location_1.longitude),parseFloat(d.location_1.latitude)],
+    });
+  }
+  /* */
 
   function getCoordinates() {
     switch (city) {
@@ -111,12 +112,24 @@ export default function Home() {
     }
   }
 
-  const layers = {
-    NYC: {
-
+  const layers: any = {
+    "NYC": {
+      "Scatter Plot": {
+        "Tree": getScatterPlotNYC("https://data.cityofnewyork.us/resource/uvpi-gqnh.json"),
+        "Collisions": getScatterPlotNYC("https://data.cityofnewyork.us/resource/h9gi-nx95.json")
+      },
+      "Hexagon": {
+        "Tree": getHexagonNYC("https://data.cityofnewyork.us/resource/uvpi-gqnh.json"),
+        "Collisions": getHexagonNYC("https://data.cityofnewyork.us/resource/h9gi-nx95.json")
+      }
     },
-    LA: {
-
+    "LA": {
+      "Scatter Plot": {
+        "Businesses": getScatterPlotLA("https://data.lacity.org/resource/6rrh-rzua.json?$limit=100000&$WHERE=location_1 IS NOT NULL")
+      },
+      "Hexagon": {
+        "Businesses": getHexagonLA("https://data.lacity.org/resource/6rrh-rzua.json?$limit=100000&$WHERE=location_1 IS NOT NULL")
+      }
     }
   }
 
@@ -126,7 +139,7 @@ export default function Home() {
       <DeckGL 
         initialViewState={getCoordinates()}
         controller={true}
-        layers={[getHexagonLA()]}
+        layers={[layers[city][layer][data]]}
       >
         <Map
           mapboxAccessToken='pk.eyJ1IjoieXV5YWZ1amltb3RvIiwiYSI6ImNsbm5wNXVwMzA3Y3Iya3Ftd2c1MW92djkifQ.gJHn2MuzuWqhlTnVg018Eg'
