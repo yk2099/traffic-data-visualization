@@ -13,8 +13,9 @@ const data = [
 ];
 
 export default function Home() {
-  const [city, setCity] = useState('');
-  const [data, setData] = useState('Tree');
+  const [city, setCity] = useState('City');
+  const [data, setData] = useState('Data');
+  const [layer, setLayer] = useState('Layer');
 
   function getHexagonNYC() {
     return new HexagonLayer({
@@ -121,7 +122,7 @@ export default function Home() {
 
   return (
     <Box>
-      <Navbar city={city} setCity={setCity} data={data} setData={setData} />
+      <Navbar city={city} setCity={setCity} data={data} setData={setData} layer={layer} setLayer={setLayer}/>
       <DeckGL 
         initialViewState={getCoordinates()}
         controller={true}
