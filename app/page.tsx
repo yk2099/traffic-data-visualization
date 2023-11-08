@@ -13,7 +13,7 @@ const data = [
 ];
 
 export default function Home() {
-  const [city, setCity] = useState('LA');
+  const [city, setCity] = useState('');
   const [data, setData] = useState('Tree');
 
   function getHexagonNYC() {
@@ -28,6 +28,7 @@ export default function Home() {
     });
   }
 
+  /* LA Trees */
   function getHexagonLA() {
     return new HexagonLayer({
       id: 'hexagon-layer',
@@ -40,7 +41,8 @@ export default function Home() {
     });
   }
 
-  function getScatterPlotLA() {
+  /* LA Trees */
+  /* function getScatterPlotLA() {
     return new ScatterplotLayer({
       id: 'scatterplot-layer',
       data: 'https://data.lacity.org/resource/vt5t-mscf.json',
@@ -57,8 +59,9 @@ export default function Home() {
       getFillColor: d => [255, 140, 255],
       getLineColor: d => [124,252,0]
     })
-  };
+  }; */
 
+  /* NY Trees */
   function getScatterPlotNYC() {
     return new ScatterplotLayer({
       id: 'scatterplot-layer',
@@ -96,6 +99,23 @@ export default function Home() {
           pitch: 0,
           bearing: 0
         }
+      default: 
+        return {
+          latitude: 39,
+          longitude: -95,
+          zoom: 3,
+          pitch: 0,
+          bearing: 0
+        }
+    }
+  }
+
+  const layers = {
+    NYC: {
+
+    },
+    LA: {
+
     }
   }
 
