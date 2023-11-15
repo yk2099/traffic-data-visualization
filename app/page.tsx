@@ -8,14 +8,21 @@ import { HexagonLayer } from '@deck.gl/aggregation-layers/typed';
 import { Box } from '@chakra-ui/react';
 import { Navbar } from '@/components/Navbar';
 
-const data = [
-  {sourcePosition: [-122.41669, 37.7853], targetPosition: [-122.41669, 37.781]}
-];
-
 export default function Home() {
-  const [city, setCity] = useState('LA');
-  const [data, setData] = useState('Businesses');
-  const [layer, setLayer] = useState('Scatter Plot');
+  const [city, setCity] = useState('');
+  const [layer, setLayer] = useState('');
+  const [data, setData] = useState('');
+
+  function handleCityChange(pCity: string): void {
+    setCity(pCity)
+    setData('')
+    setLayer('')
+  }
+
+  function handleLayerChange(pLayer: string): void {
+    setLayer(pLayer)
+    setData('')
+  }
 
   /* NY */
   function getScatterPlotNYC( link: string ) {
@@ -135,11 +142,11 @@ export default function Home() {
 
   return (
     <Box>
-      <Navbar city={city} setCity={setCity} data={data} setData={setData} layer={layer} setLayer={setLayer}/>
+      <Navbar city={city} handleCityChange={handleCityChange} data={data} setData={setData} layer={layer} handleLayerChange={handleLayerChange} layers={layers}/>
       <DeckGL 
         initialViewState={getCoordinates()}
         controller={true}
-        layers={[layers[city][layer][data]]}
+        layers={data ? [layers[city][layer][data]] : []}
       >
         <Map
           mapboxAccessToken='pk.eyJ1IjoieXV5YWZ1amltb3RvIiwiYSI6ImNsbm5wNXVwMzA3Y3Iya3Ftd2c1MW92djkifQ.gJHn2MuzuWqhlTnVg018Eg'
