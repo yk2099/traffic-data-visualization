@@ -8,10 +8,18 @@ import { HexagonLayer } from '@deck.gl/aggregation-layers/typed';
 import { Box } from '@chakra-ui/react';
 import { Navbar } from '@/components/Navbar';
 
+interface Coordinates {
+  latitude: number
+  longitude: number
+  zoom: number
+  pitch: number
+  bearing: number
+}
+
 export default function Home() {
-  const [city, setCity] = useState('');
-  const [layer, setLayer] = useState('');
-  const [data, setData] = useState('');
+  const [city, setCity] = useState<string>('');
+  const [layer, setLayer] = useState<string>('');
+  const [data, setData] = useState<string>('');
 
   function handleCityChange(pCity: string): void {
     setCity(pCity)
@@ -25,7 +33,7 @@ export default function Home() {
   }
 
   /* NY */
-  function getScatterPlotNYC( link: string ) {
+  function getScatterPlotNYC( link: string ): ScatterplotLayer {
     return new ScatterplotLayer({
       id: 'scatterplot-layer',
       data: link,
@@ -44,7 +52,7 @@ export default function Home() {
     })
   };
 
-  function getHexagonNYC( link: string ) {
+  function getHexagonNYC( link: string ): HexagonLayer<any> {
     return new HexagonLayer({
       id: 'hexagon-layer',
       data: link,
@@ -58,7 +66,7 @@ export default function Home() {
   /* */
 
   /* LA */
-  function getScatterPlotLA( link: string ) {
+  function getScatterPlotLA( link: string ): ScatterplotLayer {
     return new ScatterplotLayer({
       id: 'scatterplot-layer',
       data: link,
@@ -77,7 +85,7 @@ export default function Home() {
     })
   };
 
-  function getHexagonLA( link: string ) {
+  function getHexagonLA( link: string ): HexagonLayer<any> {
     return new HexagonLayer({
       id: 'hexagon-layer',
       data: link,
@@ -90,7 +98,7 @@ export default function Home() {
   }
   /* */
 
-  function getCoordinates() {
+  function getCoordinates(): Coordinates {
     switch (city) {
       case 'LA':
         return {
