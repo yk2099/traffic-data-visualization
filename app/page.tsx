@@ -6,7 +6,7 @@ import DeckGL from '@deck.gl/react/typed';
 import { ScatterplotLayer } from '@deck.gl/layers/typed';
 import { HexagonLayer } from '@deck.gl/aggregation-layers/typed';
 import { Box } from '@chakra-ui/react';
-import { Navbar } from '@/components/Navbar';
+import { Navbar } from '@/app/components/Navbar';
 
 interface Coordinates {
   latitude: number
