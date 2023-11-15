@@ -6,14 +6,7 @@ import DeckGL from '@deck.gl/react/typed';
 import { Box } from '@chakra-ui/react';
 import { Navbar } from '@/app/components/Navbar';
 import { layers } from '@/app/utils/layers';
-
-interface Coordinates {
-  latitude: number
-  longitude: number
-  zoom: number
-  pitch: number
-  bearing: number
-}
+import { getCoordinates } from '@/app/utils/coordinates';
 
 export default function Home() {
   const [city, setCity] = useState<string>('');
@@ -31,40 +24,11 @@ export default function Home() {
     setData('')
   }
 
-  function getCoordinates(): Coordinates {
-    switch (city) {
-      case 'LA':
-        return {
-          latitude: 34.137187,
-          longitude: -118.347238,
-          zoom: 13,
-          pitch: 0,
-          bearing: 0
-        }
-      case 'NYC':
-        return {
-          latitude: 40.712776,
-          longitude: -74.005974,
-          zoom: 13,
-          pitch: 0,
-          bearing: 0
-        }
-      default: 
-        return {
-          latitude: 39,
-          longitude: -95,
-          zoom: 3,
-          pitch: 0,
-          bearing: 0
-        }
-    }
-  }
-
   return (
     <Box>
       <Navbar city={city} handleCityChange={handleCityChange} data={data} setData={setData} layer={layer} handleLayerChange={handleLayerChange} layers={layers}/>
       <DeckGL 
-        initialViewState={getCoordinates()}
+        initialViewState={getCoordinates(city)}
         controller={true}
         layers={data ? [layers[city][layer][data]] : []}
       >
