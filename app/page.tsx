@@ -33,7 +33,7 @@ export default function Home() {
         layers={data ? [layers[city][layer][data]] : []}
       >
         <Map
-          mapboxAccessToken='pk.eyJ1IjoieXV5YWZ1amltb3RvIiwiYSI6ImNsbm5wNXVwMzA3Y3Iya3Ftd2c1MW92djkifQ.gJHn2MuzuWqhlTnVg018Eg'
+          mapboxAccessToken={process.env.NEXT_PUBLIC_WEBGL_KEY}
           mapStyle="mapbox://styles/mapbox/dark-v10"
         />
       </DeckGL>
