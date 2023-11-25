@@ -30,7 +30,7 @@ export function Navbar({
       top={0}
       zIndex={1}
     >
-      <Heading as="h1">WebGL Traffic Visualization</Heading>
+      <Heading as="h1">WebGL Data Visualization</Heading>
       <Flex alignItems={"center"} gap={"0.5rem"}>
         <Text>Select a Dataset: </Text>
         <SelectComponent
