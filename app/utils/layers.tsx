@@ -120,7 +120,7 @@ export const layers: any = (onDataLoad: () => void) => {
           "https://data.lacity.org/resource/g986-7yf9.json?$limit=100000&$WHERE=location_1 IS NOT NULL",
           onDataLoad
         ),
-        "Building Permits": getHexagonLA(
+        "Building Permits": getScatterPlotLA(
           "https://data.lacity.org/resource/nbyu-2ha9.json?$limit=100000&$WHERE=location_1 IS NOT NULL",
           onDataLoad
         ),
