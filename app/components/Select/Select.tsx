@@ -21,10 +21,16 @@ export function SelectComponent({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
+            bg={'white'}
+            color={'black'}
         >
             {options.map((option) => (
-                <option key={option} value={option}>
-                    <Text color={'black'}>{option}</Text>
+                <option
+                    key={option}
+                    value={option}
+                    style={{ background: 'white', color: 'black' }}
+                >
+                    {option}
                 </option>
             ))}
         </Select>
