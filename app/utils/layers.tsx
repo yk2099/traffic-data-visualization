@@ -116,10 +116,26 @@ export const layers: any = (onDataLoad: () => void) => {
           "https://data.lacity.org/resource/6rrh-rzua.json?$limit=100000&$WHERE=location_1 IS NOT NULL",
           onDataLoad
         ),
+        "Grocery Stores": getScatterPlotLA(
+          "https://data.lacity.org/resource/g986-7yf9.json?$limit=100000&$WHERE=location_1 IS NOT NULL",
+          onDataLoad
+        ),
+        "Building Permits": getHexagonLA(
+          "https://data.lacity.org/resource/nbyu-2ha9.json?$limit=100000&$WHERE=location_1 IS NOT NULL",
+          onDataLoad
+        ),
       },
       Hexagon: {
         Businesses: getHexagonLA(
-          "https://data.lacity.org/resource/6rrh-rzua.json?$limit=100000&$WHERE=location_1 IS NOT NULL",
+          "https://data.lacity.org/resource/6rrh-rzua.json?$WHERE=location_1 IS NOT NULL",
+          onDataLoad
+        ),
+        "Grocery Stores": getHexagonLA(
+          "https://data.lacity.org/resource/g986-7yf9.json?$WHERE=location_1 IS NOT NULL",
+          onDataLoad
+        ),
+        "Building Permits": getHexagonLA(
+          "https://data.lacity.org/resource/nbyu-2ha9.json?$limit=100000&$WHERE=location_1 IS NOT NULL",
           onDataLoad
         ),
       },
